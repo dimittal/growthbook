@@ -7,14 +7,16 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   tipMinWidth?: string;
   tipPosition?: "bottom" | "top" | "left" | "right";
   innerClassName?: string;
+  shouldDisplay?: boolean;
 }
 const Tooltip: FC<Props> = ({
   body,
   children,
-  className,
+  className = "",
   tipMinWidth = "140px",
   tipPosition = "bottom",
-  innerClassName,
+  innerClassName = "",
+  shouldDisplay = true,
   ...otherProps
 }) => {
   const [trigger, setTrigger] = useState(null);
@@ -48,7 +50,7 @@ const Tooltip: FC<Props> = ({
       >
         {children}
       </span>
-      {open && body && (
+      {open && body && shouldDisplay && (
         <div
           ref={setTooltip}
           style={{
